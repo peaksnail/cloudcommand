@@ -1,0 +1,196 @@
+syn on                      "语法支持
+filetype indent on          "缩进支持
+filetype plugin on
+
+"common conf {{             通用配置
+set ai                      "自动缩进
+set bs=2                    "在insert模式下用退格键删除
+set showmatch               "代码匹配
+set laststatus=2            "总是显示2行状态行
+set expandtab               "以下三个配置配合使用，设置tab和缩进空格数
+set shiftwidth=4
+set tabstop=4
+set cursorline              "为光标所在行加下划线
+"set cursorcolumn            "为光标所在列加线
+set number                  "显示行号
+set autoread                "文件在Vim之外修改过，自动重新读入
+set autochdir               "自动更换目录
+set scrolloff=5             "光标在里窗口上下5行时自动滚动
+set incsearch               "当输入搜索内容时立刻显示相关内容
+hi Search cterm=bold ctermfg=green   ctermbg=Black  "hi search color setting
+"set formatoptions=tcrqn     "自动格式化
+
+set confirm                "在处理未保存或只读文件的时候，弹出确认
+set ignorecase              "检索时忽略大小写
+"set fileencodings=uft-8,gbk "使用utf-8或gbk等等打开文件
+set fileencodings=utf-8,gbk,gb18030,ucs-bom,default
+set hls                     "检索时高亮显示匹配项
+set helplang=cn             "帮助系统设置为中文
+set foldmethod=syntax       "代码折叠
+set infercase           " CTRL_P auto tranfer the case:usr_24.txt P177 
+set gdefault               "替换时g标签成为默认，替换时替换本行所有符合的匹配
+set wrap   "自动换行显示  
+set linebreak "整词换行                                      
+"set display=lastline  "长行不能呢个完全显示时，显示当前能显>    示的，默认是显示@
+"set report=0  "通过command命令，显示哪一行被改变过
+set autoindent
+set vb t_vb=  "关闭错误声音和闪烁
+"}}
+
+"编程：c程序内容排版                                                        
+set formatoptions=tcrqn     "自动格式化
+set smartindent             "为c提供自动缩进
+set cindent shiftwidth=4    "使c样式的缩进
+set cinoptions+={2           
+set shiftwidth=4            "新开一行比上一行退格4的单位
+
+"设置自动保存折叠
+au BufWinLeave *.* silent mkview
+au BufWinEnter *.* silent!  loadview
+
+"ctags 设置 安装ctags
+"set tags=~/Documents/programs/c/tags
+"set tags+=/usr/include/tags
+
+
+"--------------------------
+"窗口操作的快捷键
+"-----------------------
+nmap wv <C-w>v "垂直分割当前窗口
+nmap wc <C-w>c "关闭当前窗口
+nmap ws <C-w>s "水平分割当前窗口
+nmap te :tabedit <CR> "新建标签文件
+
+"标签键(键盘映射)
+"map <F5> :ls<CR>:e #  "笔记本键盘没做用
+"显示buffer中文件
+map <C-b> :ls<CR>:e #
+map <Up> gk
+map <Down> gj
+map sf :w <CR>  "保存文件
+"保存寄存器中信息
+"map <C-s> :wviminfo 
+"map <C-n> :tabNext<CR>
+"
+"map <C-l> :tablast<CR>
+set hidden
+set autowrite
+
+"用空格键开关折叠
+"set foldenable 
+"set foldmethod=manual
+"nnoremap <space> @=((foldclosed(line('.'))<0) ? 'zc' : 'zo' ) <CR>
+
+"conf for tabs, 为标签页进行的配置，通过ctrl h/l切换标签等
+let mapleader = ','
+"nnoremap <C-l> gt
+"nnoremap <C-h> gT
+nnoremap <leader>t : tab<CR>
+
+"conf for plugins {{ 插件相关的配置
+"状态栏的配置 
+"set statusline=%F%m%r%h%w\[FORMAT=%{&ff}]\[TYPE=%Y]\[POS=%l,%v][%p%%]\[LINE=%L]\%{strftime(\"%d/%m/%y\ -\ %H:%M\")}
+
+"powerline{
+set guifont=PowerlineSymbols\ for\ Powerline
+set nocompatible
+set t_Co=256
+let g:Powerline_symbols = 'unicode'
+
+set showcmd                 "显示执行的命令   "要在powerline后面定义,否则会被覆盖
+
+"taglist 设置 安装taglist
+"taglist{
+let Tlist_Show_One_File = 1    "只显示当前文件的taglist，默认是显示多个
+let Tlist_Exit_OnlyWindow = 1  "如果taglist是最后一个窗口，则退出vim
+let Tlist_Use_Left_Window = 1 "在右侧窗口中显示taglist
+let Tlist_GainFocus_On_ToggleOpen = 1      "打开taglist时，光标保留在taglist窗口
+let Tlist_Ctags_Cmd= '/bin/ctags' "设置ctags命令的位置
+let Tlist_Compart_Format = 1
+let Tlist_Enable_Fold_Column = 0
+let Tlist_WinWidth=20
+let g:winManagerWindowLayout='FileExplorer|TagList'
+nmap wm : Tlist<CR>
+"nnoremap <leader>tl : Tlist<CR>             "设置关闭和打开taglist窗口的快捷键
+"}
+"}
+
+"pathogen是Vim用来管理插件的插件
+"pathogen{
+call pathogen#infect()
+"}
+
+"}}
+
+"使用man手册，使得man与文本在同一个界面
+runtime! ftplugin/man.vim
+nmap ,m :Man <C-R>=expand("<cword>")<CR><CR>
+
+"gvim 设置
+set guioptions+=B "底部滚动条
+
+"cscope setting
+set cscopequickfix=s-,c-,d-,i-,t-,e-
+
+"superTab
+let g:SuperTabRetainCompletionType=2
+let g:SuperTabDefaultCompletionType="context"
+
+"--------------------------
+"Doxygentoolkit 设置
+"--------------------------
+let g:DoxygenToolkit_authorName="psnail  peaksnail@gmail.com"
+let g:DoxygenToolkit_briefTag_funcName="yes"
+let g:doxygen_enhanced_color=1
+let g:DoxygenToolkit_blockHeader="----------------------"
+let g:DoxygenToolkit_blockFooter="----------------------"
+let g:DoxygenToolkit_briefTag_pre="@Synopsis  " 
+let g:DoxygenToolkit_paramTag_pre="@Param " 
+let g:DoxygenToolkit_returnTag="@Returns   " 
+let g:DoxygenToolkit_commentType = "C++"        "注释类型
+
+"--------------------------
+"javascript complete
+"--------------------------
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+
+"--------------------------
+"vim-latex suite
+"--------------------------
+set shellslash
+set grepprg=grep\-nH\$*
+let g:tex_flavor='xelatex'
+
+"--------------------------
+"cpp omnicppcomplete 设置
+"--------------------------
+"set nocp
+"filetype plugin on
+"let OmniCpp_GlobalScopeSearch = 1  " 0 or 1
+"let OmniCpp_NamespaceSearch = 1   " 0 ,  1 or 2
+"let OmniCpp_DisplayMode = 1
+"let OmniCpp_ShowScopeInAbbr = 0
+"let OmniCpp_ShowPrototypeInAbbr = 1
+"let OmniCpp_ShowAccess = 1
+"let OmniCpp_MayCompleteDot = 1
+"let OmniCpp_MayCompleteArrow = 1
+"let OmniCpp_MayCompleteScope = 1
+"set completeopt=menu,preview
+
+"--------------------------
+"clang complete setting
+"--------------------------
+
+let g:clang_complete_copen=0
+let g:clang_periodic_quickfix=0
+let g:clang_snippets=1
+let g:clang_close_preview=1
+""let g:neocomplcache_clang_user_options =
+"    \ '-include /usr/include/c++/4.7.2/iostream'
+""let g:clang_use_library=1
+let g:clang_user_options='-std=c++11 -IIncludePath'
+let g:clang_user_options='|| exit 0'
+let g:clang_complete_auto = 1
+""let g:neocomplcache_enable_at_startup = 1 
+let g:clang_auto_select = 1
+set completeopt=menu

@@ -1,0 +1,7 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_1='/home/psnail/Downloads'
+let g:netrw_dirhist_2='/home/psnail/Documents/info'
+let g:netrw_dirhist_3='/home/psnail/Documents/programs/eclipse/eclipse_javaee/workspace/FinacialProject/web-app'
+let g:netrw_dirhist_4='/home/psnail/Documents/programs/eclipse/test'
+let g:netrw_dirhist_5='/Volumes/hello/goldfish/.git'
